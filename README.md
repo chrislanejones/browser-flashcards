@@ -33,12 +33,14 @@ A modern, responsive flashcards application built with Next.js and Tailwind CSS.
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/flashcards-app.git
    cd flashcards-app
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -46,6 +48,7 @@ A modern, responsive flashcards application built with Next.js and Tailwind CSS.
    ```
 
 3. Run the development server:
+
    ```bash
    npm run dev
    # or
@@ -68,7 +71,7 @@ To add your own flashcard content, edit the `flashcardData` array in `components
 const flashcardData = [
   { id: 1, question: "Your Question", answer: "Your Answer" },
   // Add more cards as needed
-]
+];
 ```
 
 ## Project Structure
@@ -109,9 +112,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Design inspired by traditional index cards used for studying
-- Built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/)
-- UI components from [shadcn/ui](https://ui.shadcn.com/)

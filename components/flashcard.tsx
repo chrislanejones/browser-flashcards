@@ -1,68 +1,91 @@
-"use client"
+"use client";
 
-import { forwardRef, useState } from "react"
-import { cn } from "@/lib/utils"
+import { forwardRef, useImperativeHandle, useState, useRef } from "react";
+import { cn } from "@/lib/utils";
 
-interface FlashcardProps {
-  question: string
-  answer: string
-  isFocused: boolean
-  onFocus: () => void
+// Define a type for the methods we want to expose
+export interface FlashcardHandle {
+  flip: () => void;
 }
 
-const Flashcard = forwardRef<HTMLDivElement, FlashcardProps>(({ question, answer, isFocused, onFocus }, ref) => {
-  const [isFlipped, setIsFlipped] = useState(false)
+interface FlashcardProps {
+  question: string;
+  answer: string;
+  isFocused: boolean;
+  onFocus: () => void;
+}
 
-  const toggleFlip = () => {
-    setIsFlipped(!isFlipped)
-  }
+const Flashcard = forwardRef<FlashcardHandle, FlashcardProps>(
+  ({ question, answer, isFocused, onFocus }, ref) => {
+    const [isFlipped, setIsFlipped] = useState(false);
+    const divRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "aspect-[1.67/1] perspective-1000 cursor-pointer outline-none transition-all duration-200",
-        isFocused && "ring-4 ring-pink-500 ring-opacity-70",
-      )}
-      onClick={toggleFlip}
-      onFocus={onFocus}
-      tabIndex={0}
-    >
+    // Expose the flip method
+    useImperativeHandle(ref, () => ({
+      flip: () => {
+        setIsFlipped((prev) => !prev);
+      },
+    }));
+
+    const toggleFlip = () => {
+      setIsFlipped((prev) => !prev);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault(); // Prevent scrolling with spacebar
+        toggleFlip();
+      }
+    };
+
+    return (
       <div
+        id={`flashcard-${Math.random().toString(36).substr(2, 9)}`}
+        ref={divRef}
         className={cn(
-          "relative w-full h-full transition-transform duration-500 preserve-3d",
-          isFlipped ? "rotate-y-180" : "",
+          "aspect-[1.67/1] perspective-1000 cursor-pointer transition-all duration-200",
+          isFocused && "card-focus-ring"
         )}
+        onClick={toggleFlip}
+        onFocus={onFocus}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
       >
-        {/* Front side */}
         <div
           className={cn(
-            "absolute w-full h-full backface-hidden",
-            "bg-card dark:bg-card border rounded-md shadow-md",
-            "flex flex-col items-center justify-center p-4",
-            "index-card",
+            "relative w-full h-full transition-transform duration-500 preserve-3d z-10",
+            isFlipped ? "rotate-y-180" : ""
           )}
         >
-          <div className="text-xl font-medium text-center">{question}</div>
-        </div>
+          {/* Front side */}
+          <div
+            className={cn(
+              "absolute w-full h-full backface-hidden",
+              "rounded-md shadow-md",
+              "flex flex-col items-center justify-center",
+              "index-card"
+            )}
+          >
+            <div className="text-xl font-medium text-center">{question}</div>
+          </div>
 
-        {/* Back side */}
-        <div
-          className={cn(
-            "absolute w-full h-full backface-hidden rotate-y-180",
-            "bg-card dark:bg-card border rounded-md shadow-md",
-            "flex flex-col items-center justify-center p-4",
-            "index-card",
-          )}
-        >
-          <div className="text-lg text-center">{answer}</div>
+          {/* Back side */}
+          <div
+            className={cn(
+              "absolute w-full h-full backface-hidden rotate-y-180",
+              "rounded-md shadow-md",
+              "flex flex-col items-center justify-center",
+              "index-card"
+            )}
+          >
+            <div className="text-lg text-center">{answer}</div>
+          </div>
         </div>
       </div>
-    </div>
-  )
-})
+    );
+  }
+);
 
-Flashcard.displayName = "Flashcard"
+Flashcard.displayName = "Flashcard";
 
-export default Flashcard
-
+export default Flashcard;
