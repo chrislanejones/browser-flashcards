@@ -1,114 +1,141 @@
-# Interactive Flashcards App
+# Interactive React Flashcards App
 
-A modern, responsive flashcards application built with Next.js and Tailwind CSS. This application provides an interactive way to study using digital index cards with a realistic appearance and smooth flip animations.
+📚 Live Demo: [https://browser-flashcards.vercel.app/](https://browser-flashcards.vercel.app/)
 
-![Flashcards App Screenshot](https://via.placeholder.com/800x400?text=Flashcards+App)
+<!--  -->
 
-## Features
+![Flashcards App Screenshot](/public/Flash-Cards-For-Studying.webp)
 
-- **Interactive Flashcards**: Click or use keyboard to flip cards and reveal answers
-- **Realistic Index Card Design**: Complete with red and blue ruled lines for an authentic look
-- **Keyboard Navigation**: Use arrow keys or WASD to navigate between cards
-- **Spacebar Flipping**: Press spacebar to flip the currently focused card
-- **Responsive Layout**: Adapts to different screen sizes with a responsive grid
-- **Dark/Light Mode**: Toggle between light and dark themes with persistent storage
-- **Accessible Design**: Keyboard navigable with proper focus indicators
+A modern, interactive flashcards application built with Next.js, React, and Tailwind CSS. This app provides a dynamic study experience with smooth navigation and intuitive interactions.
 
-## Technology Stack
+## 🌟 Features
 
-- **Next.js**: React framework for server-rendered applications
-- **TypeScript**: For type safety and better developer experience
-- **Tailwind CSS**: Utility-first CSS framework for styling
-- **next-themes**: For theme management with system preference detection
-- **Radix UI**: Accessible UI components for the dropdown menu
-- **Lucide Icons**: Simple, clean SVG icons
+- **Interactive Navigation**
 
-## Getting Started
+  - Keyboard navigation using arrow keys and WASD
+  - Click and focus interactions
+  - Spacebar to flip cards
+  - Escape key to clear focus
+
+- **Responsive Design**
+
+  - Adaptive grid layout (1-4 columns based on screen width)
+  - Smooth scrolling and card focus management
+
+- **Theme Support**
+
+  - Light and dark mode
+  - System preference detection
+  - Persistent theme selection
+
+- **Realistic Card Design**
+  - Index card-style aesthetic
+  - Custom styling with ruled lines
+  - Smooth flip animations
+
+## 🚀 Technology Stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- next-themes
+- Lucide React Icons
+
+## 🔧 Installation
 
 ### Prerequisites
 
-- Node.js 16.8.0 or later
+- Node.js (v16+)
 - npm or yarn
 
-### Installation
+### Setup
 
-1. Clone the repository:
+1. Clone the repository
 
-   ```bash
-   git clone https://github.com/yourusername/flashcards-app.git
-   cd flashcards-app
-   ```
+```bash
+git clone https://github.com/yourusername/flashcards-app.git
+cd flashcards-app
+```
 
-2. Install dependencies:
+2. Install dependencies
 
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
+```bash
+npm install
+# or
+yarn install
+```
 
-3. Run the development server:
+3. Run the development server
 
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+## 🎮 Usage
 
-## Usage
+### Keyboard Controls
 
-- **Navigate**: Use arrow keys or WASD to move between cards
-- **Flip Card**: Click on a card or press spacebar when focused to flip it
-- **Change Theme**: Click the sun/moon icon in the footer to toggle between light and dark modes
+- **Navigation**
+  - Arrow Keys / WASD: Move between cards
+  - Spacebar: Flip focused card
+  - Escape: Clear card focus
 
-## Customizing Flashcards
+### Mouse Interactions
 
-To add your own flashcard content, edit the `flashcardData` array in `components/flashcard-grid.tsx`:
+- **Click on Card**:
+  - Focus the card
+  - Flip the card when clicked
+
+### Theme Toggle
+
+- Use the sun/moon icon in the footer to switch between light and dark modes
+
+## 📂 Project Structure
+
+```
+├── app/
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Main page component
+│   └── globals.css        # Global styles
+├── components/
+│   ├── flashcard.tsx      # Individual flashcard component
+│   ├── flashcard-grid.tsx # Grid layout for flashcards
+│   ├── theme-provider.tsx # Theme context provider
+│   └── theme-toggle.tsx   # Theme switching component
+├── data/
+│   └── flashcards.ts      # Flashcard content
+├── utils/
+│   ├── keyboard-controls.ts
+│   └── mouse-controls.ts  # Interaction utilities
+└── tailwind.config.js     # Tailwind configuration
+```
+
+## 🗂️ Managing Flashcards
+
+Edit the `data/flashcards.ts` file to customize your flashcards:
 
 ```typescript
-const flashcardData = [
-  { id: 1, question: "Your Question", answer: "Your Answer" },
-  // Add more cards as needed
+const reactFlashcards = [
+  {
+    id: 1,
+    question: "What is React?",
+    answer: "A JavaScript library for building user interfaces",
+  },
+  // Add more flashcards here
 ];
 ```
 
-## Project Structure
+## 🤝 Contributing
 
-```
-├── components/
-│   ├── ui/              # UI components (button, dropdown-menu)
-│   ├── flashcard.tsx    # Individual flashcard component
-│   ├── flashcard-grid.tsx  # Grid layout for flashcards
-│   ├── theme-provider.tsx  # Theme context provider
-│   └── theme-toggle.tsx    # Theme switching button
-├── lib/
-│   └── utils.ts         # Utility functions
-├── app/
-│   ├── globals.css      # Global CSS including index card styling
-│   ├── layout.tsx       # Root layout component
-│   └── page.tsx         # Main page component
-├── public/              # Static assets
-├── package.json         # Dependencies and scripts
-└── tailwind.config.js   # Tailwind CSS configuration
-```
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Styling
+## 📄 License
 
-The app uses a combination of Tailwind CSS for general styling and custom CSS for the index card appearance. The index card design includes:
-
-- Red top border
-- Vertical red margin line
-- Horizontal blue ruled lines
-- Custom styling for both light and dark modes
-
-These styles are defined in the `globals.css` file using custom CSS classes that are applied to the flashcard components.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+Distributed under the MIT License. See `LICENSE` for more information.
