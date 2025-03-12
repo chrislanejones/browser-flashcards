@@ -75,53 +75,55 @@
     transform: rotateY(180deg);
   }
 
-  /* Pure focus outline/ring styles */
   .card-focus-ring {
     @apply outline-none;
     position: relative;
-    z-index: 0;
   }
 
-  .card-focus-ring::after {
+  .card-focus-ring::before {
     content: "";
     position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
+    left: -10px;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
     border-radius: 12px;
     z-index: -1;
-    pointer-events: none;
   }
 
-  .dark .card-focus-ring::after {
+  .dark .card-focus-ring::before {
     background: linear-gradient(
-      240deg,
-      rgb(226, 219, 31) 0%,
-      rgb(174, 16, 249) 100%
+      90deg,
+      hsla(12, 84%, 68%, 1) 0%,
+      hsla(343, 100%, 66%, 1) 100%
     );
-    box-shadow: 0 0 15px rgba(226, 219, 31, 0.5);
-    opacity: 0.9;
+    box-shadow: 0 0 20px rgba(226, 219, 31, 0.7);
   }
 
-  :not(.dark) .card-focus-ring::after {
+  .light .card-focus-ring::before {
     background: linear-gradient(
       90deg,
       rgba(180, 180, 180, 1),
       rgba(220, 220, 220, 1)
     );
     box-shadow: 0 0 15px rgba(200, 200, 200, 0.6);
-    opacity: 0.8;
   }
 
-  /* Create an inner pseudo-element to make a gradient border effect */
+  .card-focus-ring > div {
+    position: relative;
+    z-index: 2;
+  }
+
   .card-focus-ring > div::before {
     content: "";
     position: absolute;
-    inset: -4px;
-    background: var(--background);
-    border-radius: 10px;
-    z-index: 2;
+    left: -6px;
+    top: -6px;
+    right: -6px;
+    bottom: -6px;
+    background-color: var(--background);
+    border-radius: 8px;
+    z-index: -1;
   }
 
   .index-card {
@@ -141,7 +143,7 @@
   }
 
   .dark .index-card {
-    background-color: hsl(220, 13%, 18%); /* Dark gray for dark mode */
+    background-color: hsl(220, 1%, 15%); /* Dark gray for dark mode */
     background-image: linear-gradient(
       rgba(69, 123, 157, 0.2) 1px,
       transparent 1px

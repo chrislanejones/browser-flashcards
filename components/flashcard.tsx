@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useImperativeHandle, useState, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 // Define a type for the methods we want to expose
@@ -12,48 +12,46 @@ interface FlashcardProps {
   question: string;
   answer: string;
   isFocused: boolean;
+  isFlipped: boolean;
+  onFlip: () => void;
   onFocus: () => void;
+  id?: string;
 }
 
 const Flashcard = forwardRef<FlashcardHandle, FlashcardProps>(
-  ({ question, answer, isFocused, onFocus }, ref) => {
-    const [isFlipped, setIsFlipped] = useState(false);
+  ({ question, answer, isFocused, isFlipped, onFlip, onFocus, id }, ref) => {
     const divRef = useRef<HTMLDivElement>(null);
 
     // Expose the flip method
     useImperativeHandle(ref, () => ({
       flip: () => {
-        setIsFlipped((prev) => !prev);
+        onFlip();
       },
     }));
-
-    const toggleFlip = () => {
-      setIsFlipped((prev) => !prev);
-    };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
       if (e.key === " " || e.key === "Enter") {
         e.preventDefault(); // Prevent scrolling with spacebar
-        toggleFlip();
+        onFlip();
       }
     };
 
     return (
       <div
-        id={`flashcard-${Math.random().toString(36).substr(2, 9)}`}
+        id={id}
         ref={divRef}
         className={cn(
           "aspect-[1.67/1] perspective-1000 cursor-pointer transition-all duration-200",
           isFocused && "card-focus-ring"
         )}
-        onClick={toggleFlip}
+        onClick={onFlip}
         onFocus={onFocus}
         onKeyDown={handleKeyDown}
         tabIndex={0}
       >
         <div
           className={cn(
-            "relative w-full h-full transition-transform duration-500 preserve-3d z-10",
+            "relative w-full h-full transition-transform duration-500 preserve-3d",
             isFlipped ? "rotate-y-180" : ""
           )}
         >

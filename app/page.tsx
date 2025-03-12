@@ -1,6 +1,6 @@
-import FlashcardGrid from "@/components/flashcard-grid"
-import ThemeToggle from "@/components/theme-toggle"
-import { ThemeProvider } from "@/components/theme-provider"
+import FlashcardGrid from "@/components/flashcard-grid";
+import ThemeToggle from "@/components/theme-toggle";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export default function Home() {
   // Reduce padding in the main container
@@ -15,6 +15,5 @@ export default function Home() {
         </footer>
       </div>
     </ThemeProvider>
-  )
+  );
 }
-

@@ -1,63 +1,87 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Flashcard, { FlashcardHandle } from "@/components/flashcard";
-
-// Sample flashcard data
-const flashcardData = [
-  {
-    id: 1,
-    question: "What is React?",
-    answer: "A JavaScript library for building user interfaces",
-  },
-  {
-    id: 2,
-    question: "What is JSX?",
-    answer: "JavaScript XML - A syntax extension for JavaScript",
-  },
-  { id: 3, question: "What is a component?", answer: "A reusable piece of UI" },
-  {
-    id: 4,
-    question: "What is a prop?",
-    answer: "Properties passed to a component",
-  },
-  {
-    id: 5,
-    question: "What is state?",
-    answer: "Data that changes over time in a component",
-  },
-  {
-    id: 6,
-    question: "What is a hook?",
-    answer: "Functions that let you use React features",
-  },
-  {
-    id: 7,
-    question: "What is useEffect?",
-    answer: "A hook to perform side effects in components",
-  },
-  {
-    id: 8,
-    question: "What is useState?",
-    answer: "A hook to add state to functional components",
-  },
-  {
-    id: 9,
-    question: "What is context?",
-    answer: "A way to share data without prop drilling",
-  },
-];
+import Flashcard from "@/components/flashcard";
+import reactFlashcards from "@/data/flashcards";
 
 export default function FlashcardGrid() {
-  const [focusedIndex, setFocusedIndex] = useState(0);
-  const cardRefs = useRef<(FlashcardHandle | null)[]>([]);
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(0);
+  const [flippedIndices, setFlippedIndices] = useState<Set<number>>(new Set());
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Set up keyboard navigation
+  // Generate stable IDs for each card
+  const cardIds = useRef(reactFlashcards.map((_, i) => `flashcard-${i}`));
+
+  // Function to toggle flip state for a card
+  const toggleFlip = (index: number) => {
+    setFlippedIndices((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
+
+  // Function to scroll the focused card into view
+  const scrollCardIntoView = (index: number) => {
+    const element = document.getElementById(cardIds.current[index]);
+    if (element) {
+      element.focus();
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  };
+
+  // Handle click on the grid container (outside cards)
+  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Check if the click target is the container itself
+    if (e.target === e.currentTarget) {
+      // Click was directly on the container
+      if (focusedIndex !== null) {
+        // Remove focus from any focused card
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+        setFocusedIndex(null);
+      }
+    }
+  };
+
+  // Set up keyboard navigation for the entire grid
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      const cols = Math.floor(window.innerWidth / 300) || 1;
-      const rows = Math.ceil(flashcardData.length / cols);
+      // If no card is focused and arrow/WASD is pressed, focus the first card
+      if (focusedIndex === null) {
+        if (
+          [
+            "ArrowUp",
+            "ArrowDown",
+            "ArrowLeft",
+            "ArrowRight",
+            "w",
+            "a",
+            "s",
+            "d",
+            "W",
+            "A",
+            "S",
+            "D",
+          ].includes(e.key)
+        ) {
+          setFocusedIndex(0);
+          scrollCardIntoView(0);
+          e.preventDefault();
+          return;
+        }
+        return;
+      }
 
+      const cols = Math.floor(window.innerWidth / 300) || 1;
       let newIndex = focusedIndex;
 
       // Handle navigation with WASD or arrow keys
@@ -70,7 +94,7 @@ export default function FlashcardGrid() {
         case "ArrowDown":
         case "s":
         case "S":
-          newIndex = Math.min(flashcardData.length - 1, focusedIndex + cols);
+          newIndex = Math.min(reactFlashcards.length - 1, focusedIndex + cols);
           break;
         case "ArrowLeft":
         case "a":
@@ -80,15 +104,20 @@ export default function FlashcardGrid() {
         case "ArrowRight":
         case "d":
         case "D":
-          newIndex = Math.min(flashcardData.length - 1, focusedIndex + 1);
+          newIndex = Math.min(reactFlashcards.length - 1, focusedIndex + 1);
           break;
         case " ": // Spacebar
           e.preventDefault(); // Prevent scrolling
-          // Directly call the flip method on the focused card
-          const cardRef = cardRefs.current[focusedIndex];
-          if (cardRef) {
-            cardRef.flip();
+          // Toggle flip for focused card
+          if (focusedIndex !== null) {
+            toggleFlip(focusedIndex);
           }
+          return;
+        case "Escape": // Escape key to clear focus
+          if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+          }
+          setFocusedIndex(null);
           return;
         default:
           return;
@@ -96,6 +125,7 @@ export default function FlashcardGrid() {
 
       if (newIndex !== focusedIndex) {
         setFocusedIndex(newIndex);
+        scrollCardIntoView(newIndex);
         e.preventDefault(); // Prevent scrolling
       }
     };
@@ -104,25 +134,36 @@ export default function FlashcardGrid() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [focusedIndex]);
 
-  // Return focus to the currently focused card when focus index changes
+  // Focus the first card on initial render
   useEffect(() => {
-    // This ensures the DOM element gets focus
-    const element = document.getElementById(`flashcard-${focusedIndex}`);
-    if (element) {
-      element.focus();
+    const firstCard = document.getElementById(cardIds.current[0]);
+    if (firstCard) {
+      firstCard.focus();
     }
-  }, [focusedIndex]);
+  }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-full mx-auto px-3 py-6">
-      {flashcardData.map((card, index) => (
+    <div
+      ref={containerRef}
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 w-full mx-auto px-3 py-4"
+      style={{
+        height: "calc(100vh - 74px)",
+        overflowY: "auto",
+        paddingBottom: "60px",
+      }}
+      onClick={handleContainerClick}
+      tabIndex={-1} // Make container focusable but not in tab order
+    >
+      {reactFlashcards.map((card, index) => (
         <Flashcard
           key={card.id}
           question={card.question}
           answer={card.answer}
           isFocused={focusedIndex === index}
-          ref={(el) => (cardRefs.current[index] = el)}
+          isFlipped={flippedIndices.has(index)}
+          onFlip={() => toggleFlip(index)}
           onFocus={() => setFocusedIndex(index)}
+          id={cardIds.current[index]}
         />
       ))}
     </div>
