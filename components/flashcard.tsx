@@ -1,89 +1,100 @@
 "use client";
 
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-
-// Define a type for the methods we want to expose
-export interface FlashcardHandle {
-  flip: () => void;
-}
 
 interface FlashcardProps {
   question: string;
   answer: string;
   isFocused: boolean;
   isFlipped: boolean;
-  onFlip: () => void;
+  onClick: () => void;
   onFocus: () => void;
   id?: string;
 }
 
-const Flashcard = forwardRef<FlashcardHandle, FlashcardProps>(
-  ({ question, answer, isFocused, isFlipped, onFlip, onFocus, id }, ref) => {
-    const divRef = useRef<HTMLDivElement>(null);
+export default function Flashcard({
+  question,
+  answer,
+  isFocused,
+  isFlipped,
+  onClick,
+  onFocus,
+  id,
+}: FlashcardProps): React.ReactElement {
+  const cardRef = useRef<HTMLDivElement>(null);
 
-    // Expose the flip method
-    useImperativeHandle(ref, () => ({
-      flip: () => {
-        onFlip();
-      },
-    }));
+  // Direct keydown handler for spacebar
+  const handleKeyDown = (e: React.KeyboardEvent): void => {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      onClick();
+    }
+  };
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (e.key === " " || e.key === "Enter") {
-        e.preventDefault(); // Prevent scrolling with spacebar
-        onFlip();
+  // Additional effect to handle spacebar directly on the focused element
+  useEffect(() => {
+    const element = cardRef.current;
+    if (!element) return;
+
+    const handleElementKeyDown = (e: KeyboardEvent) => {
+      if (isFocused && (e.key === " " || e.key === "Enter")) {
+        e.preventDefault();
+        onClick();
       }
     };
 
-    return (
+    element.addEventListener("keydown", handleElementKeyDown);
+    return () => {
+      element.removeEventListener("keydown", handleElementKeyDown);
+    };
+  }, [isFocused, onClick]);
+
+  return (
+    <div
+      ref={cardRef}
+      id={id}
+      className={cn(
+        "aspect-[1.67/1] perspective-1000 cursor-pointer transition-all duration-200",
+        isFocused && "card-focus-ring"
+      )}
+      onClick={onClick}
+      onFocus={onFocus}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      style={{ isolation: "isolate" }} // Creates a new stacking context
+    >
       <div
-        id={id}
-        ref={divRef}
         className={cn(
-          "aspect-[1.67/1] perspective-1000 cursor-pointer transition-all duration-200",
-          isFocused && "card-focus-ring"
+          "relative w-full h-full transition-transform duration-500 preserve-3d",
+          isFlipped ? "rotate-y-180" : ""
         )}
-        onClick={onFlip}
-        onFocus={onFocus}
-        onKeyDown={handleKeyDown}
-        tabIndex={0}
+        style={{ zIndex: 10 }} // Ensures the card is above the focus ring
       >
+        {/* Front side */}
         <div
           className={cn(
-            "relative w-full h-full transition-transform duration-500 preserve-3d",
-            isFlipped ? "rotate-y-180" : ""
+            "absolute w-full h-full backface-hidden",
+            "rounded-md shadow-md",
+            "flex flex-col items-center justify-center",
+            "index-card"
           )}
         >
-          {/* Front side */}
-          <div
-            className={cn(
-              "absolute w-full h-full backface-hidden",
-              "rounded-md shadow-md",
-              "flex flex-col items-center justify-center",
-              "index-card"
-            )}
-          >
-            <div className="text-xl font-medium text-center">{question}</div>
-          </div>
+          <div className="text-xl font-medium text-center">{question}</div>
+        </div>
 
-          {/* Back side */}
-          <div
-            className={cn(
-              "absolute w-full h-full backface-hidden rotate-y-180",
-              "rounded-md shadow-md",
-              "flex flex-col items-center justify-center",
-              "index-card"
-            )}
-          >
-            <div className="text-lg text-center">{answer}</div>
-          </div>
+        {/* Back side */}
+        <div
+          className={cn(
+            "absolute w-full h-full backface-hidden rotate-y-180",
+            "rounded-md shadow-md",
+            "flex flex-col items-center justify-center",
+            "index-card"
+          )}
+        >
+          <div className="text-lg text-center">{answer}</div>
         </div>
       </div>
-    );
-  }
-);
-
-Flashcard.displayName = "Flashcard";
-
-export default Flashcard;
+    </div>
+  );
+}

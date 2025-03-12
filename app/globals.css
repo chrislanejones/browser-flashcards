@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 92%; /* Light grey for the page background */
     --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
+    --card: 0 0% 100%; /* Pure white for card background */
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
@@ -29,7 +29,7 @@
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 220 13% 18%; /* Dark grey for card background in dark mode */
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
@@ -75,61 +75,49 @@
     transform: rotateY(180deg);
   }
 
+  /* Pure focus outline/ring styles */
   .card-focus-ring {
     @apply outline-none;
     position: relative;
   }
 
-  .card-focus-ring::before {
+  .card-focus-ring::after {
     content: "";
     position: absolute;
-    left: -10px;
-    top: -10px;
-    right: -10px;
-    bottom: -10px;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
     border-radius: 12px;
-    z-index: -1;
+    z-index: 1;
+    pointer-events: none;
   }
 
-  .dark .card-focus-ring::before {
+  .dark .card-focus-ring::after {
     background: linear-gradient(
-      90deg,
-      hsla(12, 84%, 68%, 1) 0%,
-      hsla(343, 100%, 66%, 1) 100%
+      240deg,
+      rgb(226, 219, 31) 0%,
+      rgb(174, 16, 249) 100%
     );
-    box-shadow: 0 0 20px rgba(226, 219, 31, 0.7);
+    box-shadow: 0 0 15px rgba(226, 219, 31, 0.5);
+    opacity: 0.8;
   }
 
-  .light .card-focus-ring::before {
+  .light .card-focus-ring::after {
     background: linear-gradient(
       90deg,
       rgba(180, 180, 180, 1),
       rgba(220, 220, 220, 1)
     );
     box-shadow: 0 0 15px rgba(200, 200, 200, 0.6);
-  }
-
-  .card-focus-ring > div {
-    position: relative;
-    z-index: 2;
-  }
-
-  .card-focus-ring > div::before {
-    content: "";
-    position: absolute;
-    left: -6px;
-    top: -6px;
-    right: -6px;
-    bottom: -6px;
-    background-color: var(--background);
-    border-radius: 8px;
-    z-index: -1;
+    opacity: 0.8;
   }
 
   .index-card {
     position: relative;
-    background-color: var(--card);
-    background-image: linear-gradient(
+    background-color: white; /* Explicitly white in light mode */
+    background-image: 
+      /* Blue horizontal lines */ linear-gradient(
       rgba(69, 123, 157, 0.15) 1px,
       transparent 1px
     );
@@ -143,8 +131,9 @@
   }
 
   .dark .index-card {
-    background-color: hsl(220, 1%, 15%); /* Dark gray for dark mode */
-    background-image: linear-gradient(
+    background-color: hsl(220, 13%, 18%); /* Explicit solid dark color */
+    background-image: 
+      /* Blue horizontal lines */ linear-gradient(
       rgba(69, 123, 157, 0.2) 1px,
       transparent 1px
     );
@@ -160,6 +149,7 @@
     right: 0;
     height: 1px;
     background-color: #e63946;
+    z-index: 5;
   }
 
   /* Add a colored border at the top */
@@ -173,5 +163,6 @@
     background-color: #457b9d;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    z-index: 5;
   }
 }
