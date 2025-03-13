@@ -2,11 +2,9 @@
 
 📚 Live Demo: [https://browser-flashcards.vercel.app/](https://browser-flashcards.vercel.app/)
 
-<!--  -->
-
 ![Flashcards App Screenshot](/public/Flash-Cards-For-Studying.webp)
 
-A modern, interactive flashcards application built with Next.js, React, and Tailwind CSS. This app provides a dynamic study experience with smooth navigation and intuitive interactions.
+A modern, interactive flashcards application built with Next.js, React, and Tailwind CSS. This app provides a dynamic study experience with smooth navigation, intuitive interactions, and multiple subject categories.
 
 ## 🌟 Features
 
@@ -16,6 +14,13 @@ A modern, interactive flashcards application built with Next.js, React, and Tail
   - Click and focus interactions
   - Spacebar to flip cards
   - Escape key to clear focus
+
+- **Smart Interactions**
+
+  - Idle timer that flips cards back after 20 seconds of inactivity
+  - Command palette (Ctrl+K) for quick topic switching
+  - Multiple flashcard sets (React, JavaScript, TypeScript, CSS)
+  - Categorized flashcards within each set
 
 - **Responsive Design**
 
@@ -41,6 +46,7 @@ A modern, interactive flashcards application built with Next.js, React, and Tail
 - Tailwind CSS
 - next-themes
 - Lucide React Icons
+- cmdk (Command Menu)
 
 ## 🔧 Installation
 
@@ -82,6 +88,7 @@ yarn dev
   - Arrow Keys / WASD: Move between cards
   - Spacebar: Flip focused card
   - Escape: Clear card focus
+  - Ctrl+K: Open command palette for switching topics
 
 ### Mouse Interactions
 
@@ -101,12 +108,20 @@ yarn dev
 │   ├── page.tsx           # Main page component
 │   └── globals.css        # Global styles
 ├── components/
-│   ├── flashcard.tsx      # Individual flashcard component
-│   ├── flashcard-grid.tsx # Grid layout for flashcards
+│   ├── flashcards/        # Flashcard components (new modular structure)
+│   │   ├── index.ts       # Barrel file for clean exports
+│   │   ├── FlashcardContext.tsx  # Context provider for state management
+│   │   ├── FlashcardGrid.tsx     # Grid layout for flashcards
+│   │   └── FlashcardItem.tsx     # Individual flashcard component
+│   ├── command-dialog.tsx # Command palette component
 │   ├── theme-provider.tsx # Theme context provider
-│   └── theme-toggle.tsx   # Theme switching component
+│   ├── theme-toggle.tsx   # Theme switching component
+│   └── ui/                # UI component library
 ├── data/
-│   └── flashcards.ts      # Flashcard content
+│   └── flashcards.ts      # Flashcard content with categories
+├── hooks/
+│   ├── use-idle-timer.ts  # Idle detection for auto-flipping cards
+│   └── use-flashcard-navigation.ts # Keyboard navigation logic
 ├── utils/
 │   ├── keyboard-controls.ts
 │   └── mouse-controls.ts  # Interaction utilities
@@ -118,15 +133,35 @@ yarn dev
 Edit the `data/flashcards.ts` file to customize your flashcards:
 
 ```typescript
-const reactFlashcards = [
+export const reactFlashcards: Flashcard[] = [
   {
     id: 1,
     question: "What is React?",
     answer: "A JavaScript library for building user interfaces",
+    category: "Basics",
   },
   // Add more flashcards here
 ];
 ```
+
+The application supports multiple flashcard sets that can be switched via the command palette (Ctrl+K):
+
+- React
+- JavaScript
+- TypeScript
+- CSS
+
+Each set can have categories like "Basics", "Advanced", etc. for better organization.
+
+## 🧩 Component Architecture
+
+The flashcards system now uses a more modular architecture:
+
+- **Context Provider**: Centralizes state management for all flashcards
+- **Custom Hooks**: Separates logic for navigation and idle detection
+- **Specialized Components**: Splits rendering responsibilities for better maintainability
+
+This separation of concerns makes the application more maintainable and extensible.
 
 ## 🤝 Contributing
 

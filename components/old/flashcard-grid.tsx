@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Flashcard from "@/components/flashcard";
+import Flashcard from "@/components/old/flashcard";
 import { Flashcard as FlashcardType } from "@/data/flashcards";
 import { useMouseControls } from "@/utils/mouse-controls";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import FlashcardGrid from "@/components/flashcard-grid";
+import FlashcardGrid from "@/components/flashcards/FlashcardGrid";
 import ThemeToggle from "@/components/theme-toggle";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Library } from "lucide-react";
