@@ -2,17 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import Flashcard from "@/components/flashcard";
-import reactFlashcards from "@/data/flashcards";
-import { useKeyboardControls } from "@/utils/keyboard-controls";
+import { Flashcard as FlashcardType } from "@/data/flashcards";
 import { useMouseControls } from "@/utils/mouse-controls";
 
-export default function FlashcardGrid() {
+interface FlashcardGridProps {
+  flashcards: FlashcardType[];
+}
+
+export default function FlashcardGrid({ flashcards }: FlashcardGridProps) {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(0);
   const [flippedIndices, setFlippedIndices] = useState<Set<number>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Generate stable IDs for each card
-  const cardIds = reactFlashcards.map((_, i) => `flashcard-${i}`);
+  const cardIds = flashcards.map((_, i) => `flashcard-${i}`);
 
   // Focus a specific card
   const focusCard = (index: number): void => {
@@ -92,7 +95,7 @@ export default function FlashcardGrid() {
       case "ArrowDown":
       case "s":
       case "S":
-        newIndex = Math.min(reactFlashcards.length - 1, focusedIndex + cols);
+        newIndex = Math.min(flashcards.length - 1, focusedIndex + cols);
         break;
       case "ArrowLeft":
       case "a":
@@ -102,7 +105,7 @@ export default function FlashcardGrid() {
       case "ArrowRight":
       case "d":
       case "D":
-        newIndex = Math.min(reactFlashcards.length - 1, focusedIndex + 1);
+        newIndex = Math.min(flashcards.length - 1, focusedIndex + 1);
         break;
       case "Escape": // Escape key to clear focus
         if (document.activeElement instanceof HTMLElement) {
@@ -132,6 +135,13 @@ export default function FlashcardGrid() {
     focusCard(0);
   }, []);
 
+  // Reset state when flashcards change
+  useEffect(() => {
+    setFocusedIndex(0);
+    setFlippedIndices(new Set());
+    setTimeout(() => focusCard(0), 0);
+  }, [flashcards]);
+
   return (
     <div
       ref={containerRef}
@@ -144,7 +154,7 @@ export default function FlashcardGrid() {
       onClick={(e) => handleContainerClick(e)}
       tabIndex={-1}
     >
-      {reactFlashcards.map((card, index) => (
+      {flashcards.map((card, index) => (
         <Flashcard
           key={card.id}
           question={card.question}
