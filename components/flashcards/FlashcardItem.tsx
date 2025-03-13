@@ -65,14 +65,16 @@ export default function FlashcardItem({
       ref={cardRef}
       id={id}
       className={cn(
-        "aspect-[1.67/1] perspective-1000 cursor-pointer transition-all duration-200",
+        "aspect-[1.67/1] perspective-1000 cursor-pointer transition-all duration-200 drop-in-with-bounce",
         isFocused && "card-focus-ring"
       )}
       onClick={handleClick}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      style={{ isolation: "isolate" }} // Creates a new stacking context
+      style={{
+        isolation: "isolate", // Creates a new stacking context
+      }}
     >
       <div
         className={cn(
@@ -99,10 +101,10 @@ export default function FlashcardItem({
             "absolute w-full h-full backface-hidden rotate-y-180",
             "rounded-md shadow-md",
             "flex flex-col items-center justify-center",
-            "index-card"
+            "bg-white dark:bg-slate-800" // Plain background without ruled lines
           )}
         >
-          <div className="text-lg text-center">{answer}</div>
+          <div className="text-lg text-center p-4">{answer}</div>
         </div>
       </div>
     </div>

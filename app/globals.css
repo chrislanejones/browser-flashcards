@@ -166,3 +166,102 @@
     z-index: 5;
   }
 }
+
+/* Custom scrollbar styles */
+@layer utilities {
+  /* For Webkit browsers (Chrome, Safari) */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.5);
+    border-radius: 20px;
+    border: 3px solid transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(155, 155, 155, 0.7);
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+  }
+
+  /* Only show scrollbar on hover */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hover-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  .hover-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .hover-scrollbar:hover {
+    scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+  }
+
+  .hover-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.5);
+  }
+}
+
+/* Add these animations to globals.css */
+
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  70% {
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dropInWithBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  60% {
+    transform: translateY(20px);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.drop-in {
+  animation: dropIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.drop-in-with-bounce {
+  animation: dropInWithBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    forwards;
+  animation-play-state: paused; /* Initially paused, will be started by JS */
+  opacity: 0;
+}
