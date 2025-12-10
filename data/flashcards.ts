@@ -3,430 +3,622 @@ export interface Flashcard {
   id: number;
   question: string;
   answer: string;
-  category?: string; // Optional category for grouping
+  category?: string;
 }
 
 // Define the FlashcardSet interface
 export interface FlashcardSet {
   name: string;
   description: string;
-  icon?: string; // Optional icon name for UI
+  icon?: string;
   cards: Flashcard[];
 }
 
-// React flashcards data
+/* ──────────────────────────────
+   🌿 React (updated for 2025)
+──────────────────────────────── */
 export const reactFlashcards: Flashcard[] = [
   // React Basics
   {
     id: 1,
     question: "What is React?",
-    answer: "A JavaScript library for building user interfaces",
+    answer:
+      "A JavaScript library for building user interfaces using a declarative component-based architecture.",
     category: "Basics",
   },
   {
     id: 2,
     question: "What is JSX?",
     answer:
-      "JavaScript XML - A syntax extension for JavaScript that allows writing HTML-like code in JavaScript",
+      "A JavaScript syntax extension that lets you write markup-like code inside JavaScript and compiles to React.createElement calls.",
     category: "Basics",
   },
   {
     id: 3,
-    question: "What is a component?",
-    answer: "A reusable piece of UI that can be composed with other components",
+    question: "What are components in React?",
+    answer:
+      "Reusable UI pieces that describe what should appear on screen and can manage their own state or rely on props.",
     category: "Basics",
   },
   {
     id: 4,
-    question: "What is a prop?",
-    answer:
-      "Properties passed to a component to configure its behavior or appearance",
+    question: "What are props in React?",
+    answer: "Immutable inputs to a component passed from its parent.",
     category: "Basics",
   },
   {
     id: 5,
-    question: "What is state?",
+    question: "What is state in React?",
     answer:
-      "Data that changes over time in a component and triggers re-renders when updated",
+      "Data managed within a component that can change over time and triggers re-renders when updated.",
     category: "Basics",
   },
 
-  // React Hooks
+  // Modern Hooks and Features
   {
     id: 6,
-    question: "What is a hook?",
+    question: "What is a React Hook?",
     answer:
-      "Functions that let you use React features like state and lifecycle methods in functional components",
+      "A special function starting with 'use' that lets functional components use state and other React features.",
     category: "Hooks",
   },
   {
     id: 7,
-    question: "What is useEffect?",
+    question: "What is useEffect used for?",
     answer:
-      "A hook to perform side effects in components, like data fetching or DOM manipulation",
+      "It handles side effects such as data fetching, subscriptions, or DOM manipulation after render.",
     category: "Hooks",
   },
   {
     id: 8,
-    question: "What is useState?",
-    answer: "A hook to add state to functional components",
+    question: "What is useState used for?",
+    answer:
+      "It declares a state variable within a functional component and provides a setter to update it.",
     category: "Hooks",
   },
   {
     id: 9,
-    question: "What is useContext?",
-    answer: "A hook to access context data without excessive nesting",
-    category: "Hooks",
+    question: "What is the difference between React 17, 18, and 19?",
+    answer:
+      "React 18 added concurrent rendering and automatic batching; React 19 introduces Server Components, the new compiler, and use() for async data.",
+    category: "Modern",
   },
   {
     id: 10,
-    question: "What is useRef?",
+    question: "What are Server Components?",
     answer:
-      "A hook that provides a mutable object whose .current property persists across renders",
-    category: "Hooks",
+      "React 19’s components that run on the server to fetch data and stream rendered HTML to the client efficiently.",
+    category: "Advanced",
   },
-
-  // Advanced React
   {
     id: 11,
-    question: "What is the Virtual DOM?",
+    question: "What are Suspense boundaries?",
     answer:
-      "A lightweight copy of the real DOM that React uses to optimize rendering",
+      "Declarative async loading boundaries that allow React to pause rendering parts of the UI while data or code loads.",
     category: "Advanced",
   },
   {
     id: 12,
-    question: "What is React Fiber?",
+    question: "What is React’s useOptimistic hook?",
     answer:
-      "React's core reconciliation algorithm that enables incremental rendering",
+      "It enables optimistic UI updates — updating UI immediately before a server mutation resolves or fails.",
     category: "Advanced",
   },
   {
     id: 13,
-    question: "What are Higher-Order Components (HOC)?",
+    question: "What is the difference between useContext and useReducer?",
     answer:
-      "Components that take a component and return a new component with enhanced functionality",
-    category: "Advanced",
+      "useContext shares state globally; useReducer manages complex local state transitions. Often combined for global state patterns.",
+    category: "Hooks",
   },
   {
     id: 14,
-    question: "What are React Fragments?",
+    question: "What is the new Actions API in React 19?",
     answer:
-      "A way to group multiple elements without adding extra nodes to the DOM",
+      "An API that allows server-side form actions and optimistic updates using async functions in form ‘action’ attributes.",
     category: "Advanced",
   },
   {
     id: 15,
-    question: "What are React portals?",
+    question: "What is React’s Concurrent Rendering?",
     answer:
-      "A way to render children into a DOM node outside of the parent component's hierarchy",
+      "React can interrupt and resume rendering work, making UI more responsive and allowing features like Suspense and transitions.",
     category: "Advanced",
   },
 ];
 
-// JavaScript flashcards data
+/* ──────────────────────────────
+   ⚡ JavaScript (updated 2025)
+──────────────────────────────── */
 export const javascriptFlashcards: Flashcard[] = [
-  // JavaScript Basics
+  // Basics
   {
     id: 1,
     question: "What is JavaScript?",
     answer:
-      "A high-level, interpreted programming language that conforms to the ECMAScript specification",
+      "A dynamic, high-level, interpreted programming language standardized as ECMAScript and used across environments like browsers and Node.js.",
     category: "Basics",
   },
   {
     id: 2,
-    question: "What are the primitive data types in JavaScript?",
-    answer: "String, Number, BigInt, Boolean, undefined, Symbol, and null",
-    category: "Basics",
+    question: "What’s new in ECMAScript 2024?",
+    answer:
+      "Features include Promise.withResolvers, Temporal (stage 3), ArrayBuffer transfer, and new Object.groupBy/Object.partition methods.",
+    category: "Modern",
   },
   {
     id: 3,
-    question: "What is the difference between let, const, and var?",
+    question: "What is a closure?",
     answer:
-      "var is function-scoped and hoisted, let is block-scoped, and const is block-scoped and cannot be reassigned",
-    category: "Basics",
+      "A function that remembers the variables from its lexical scope even when executed outside of that scope.",
+    category: "Functions",
   },
   {
     id: 4,
-    question: "What is hoisting in JavaScript?",
+    question: "What are JavaScript modules?",
     answer:
-      "The behavior where variable and function declarations are moved to the top of their containing scope",
+      "Files that export and import values using ES Module syntax (import/export) for encapsulated, reusable code.",
     category: "Basics",
   },
 
-  // JavaScript Functions
+  // Modern Syntax and Features
   {
     id: 5,
-    question: "What is a closure in JavaScript?",
+    question: "What is optional chaining (?.)?",
     answer:
-      "A function bundled with its lexical environment, allowing access to variables from an outer scope",
-    category: "Functions",
+      "A syntax that safely accesses nested object properties, returning undefined instead of throwing errors when properties are missing.",
+    category: "Modern",
   },
   {
     id: 6,
-    question:
-      "What is the difference between arrow functions and regular functions?",
+    question: "What is nullish coalescing (??)?",
     answer:
-      "Arrow functions have a shorter syntax, don't have their own this, arguments, or super, and can't be used as constructors",
-    category: "Functions",
+      "An operator returning the right-hand value only if the left-hand side is null or undefined.",
+    category: "Modern",
   },
   {
     id: 7,
-    question: "What is function currying?",
+    question: "What is top-level await?",
     answer:
-      "A technique of transforming a function that takes multiple arguments into a sequence of functions that each take a single argument",
-    category: "Functions",
-  },
-  {
-    id: 8,
-    question: "What is a callback function?",
-    answer:
-      "A function passed as an argument to another function, to be executed later or upon some event",
-    category: "Functions",
-  },
-
-  // Advanced JavaScript
-  {
-    id: 9,
-    question: "What is the event loop in JavaScript?",
-    answer:
-      "A mechanism that allows JavaScript to perform non-blocking operations despite being single-threaded",
-    category: "Advanced",
-  },
-  {
-    id: 10,
-    question: "What are Promises in JavaScript?",
-    answer:
-      "Objects representing the eventual completion or failure of an asynchronous operation",
-    category: "Advanced",
-  },
-  {
-    id: 11,
-    question: "What is async/await?",
-    answer:
-      "Syntactic sugar on top of Promises that makes asynchronous code look and behave more like synchronous code",
-    category: "Advanced",
-  },
-  {
-    id: 12,
-    question: "What is prototypal inheritance?",
-    answer:
-      "JavaScript's mechanism of inheriting properties and methods from object prototypes",
-    category: "Advanced",
-  },
-];
-
-// TypeScript flashcards data
-export const typescriptFlashcards: Flashcard[] = [
-  // TypeScript Basics
-  {
-    id: 1,
-    question: "What is TypeScript?",
-    answer:
-      "A strongly typed programming language that builds on JavaScript, adding static type definitions",
-    category: "Basics",
-  },
-  {
-    id: 2,
-    question: "What are the basic types in TypeScript?",
-    answer:
-      "boolean, number, string, array, tuple, enum, any, void, null, undefined, never, and object",
-    category: "Basics",
-  },
-  {
-    id: 3,
-    question: "What is an interface in TypeScript?",
-    answer:
-      "A way to define the shape of an object, specifying what properties and methods it should have",
-    category: "Basics",
-  },
-  {
-    id: 4,
-    question: "What is type inference in TypeScript?",
-    answer:
-      "The automatic detection of the data type of an expression when no explicit type is provided",
-    category: "Basics",
-  },
-
-  // TypeScript Advanced
-  {
-    id: 5,
-    question: "What are generics in TypeScript?",
-    answer:
-      "A way to create reusable components that can work with a variety of types rather than a single one",
-    category: "Advanced",
-  },
-  {
-    id: 6,
-    question: "What is a union type?",
-    answer: "A type that can be one of several types, written as Type1 | Type2",
-    category: "Advanced",
-  },
-  {
-    id: 7,
-    question: "What is an intersection type?",
-    answer:
-      "A type that combines multiple types into one, written as Type1 & Type2",
+      "Allows using await at the top level of modules without wrapping code in an async function.",
     category: "Advanced",
   },
   {
     id: 8,
-    question: "What are decorators in TypeScript?",
+    question: "What are WeakMap and WeakSet used for?",
     answer:
-      "Special declarations that can be attached to classes, methods, properties, or parameters to modify their behavior",
+      "Collections holding weak references to keys; help avoid memory leaks by not preventing garbage collection.",
     category: "Advanced",
   },
-
-  // TypeScript with React
   {
     id: 9,
-    question: "How do you type props in React with TypeScript?",
+    question: "What is event delegation?",
     answer:
-      "By creating an interface or type that defines the shape of the props object",
-    category: "With React",
+      "A technique where events on child elements are handled by an ancestor using event bubbling.",
+    category: "DOM",
   },
   {
     id: 10,
-    question: "What is the type for React function components?",
-    answer: "React.FC<PropsType> or React.FunctionComponent<PropsType>",
-    category: "With React",
+    question: "What is the difference between shallow and deep cloning?",
+    answer:
+      "Shallow copies only clone one level of properties; deep clones recursively copy nested objects (e.g., using structuredClone in modern JS).",
+    category: "Advanced",
   },
   {
     id: 11,
-    question: "How do you type useState hooks?",
+    question: "What is a generator function?",
     answer:
-      "useState<Type>(initialState) or explicitly with const [state, setState] = useState<Type>(initialState)",
-    category: "With React",
+      "A function declared with function* that can pause and resume execution, used with yield to produce iterators.",
+    category: "Advanced",
   },
   {
     id: 12,
-    question: "What is the useRef type when referencing DOM elements?",
-    answer: "useRef<HTMLElementType>(null), e.g., useRef<HTMLDivElement>(null)",
-    category: "With React",
+    question: "What is an async generator?",
+    answer:
+      "A generator that combines async/await with iteration, producing promises that resolve to yielded values.",
+    category: "Advanced",
   },
 ];
 
-// CSS flashcards data
+/* ──────────────────────────────
+   🎨 CSS (two questions replaced)
+──────────────────────────────── */
 export const cssFlashcards: Flashcard[] = [
-  // CSS Basics
+  // Basics
   {
     id: 1,
     question: "What is CSS?",
     answer:
-      "Cascading Style Sheets, a language used to describe the presentation of a document written in HTML",
+      "Cascading Style Sheets: a stylesheet language used to describe how documents are presented visually.",
     category: "Basics",
   },
   {
     id: 2,
-    question: "What are the different ways to include CSS in HTML?",
+    question: "What units are most common in modern responsive design?",
     answer:
-      "Inline styles, internal stylesheet (style tag), and external stylesheet (link tag)",
+      "Relative units like rem, em, vw, vh, and dynamic viewport units (svh, dvh, lvh) introduced in modern browsers.",
     category: "Basics",
   },
   {
     id: 3,
-    question: "What is the box model in CSS?",
+    question: "What is the box model?",
     answer:
-      "A layout model that describes how elements are rendered as boxes with content, padding, border, and margin",
-    category: "Basics",
+      "Elements consist of content, padding, border, and margin areas that determine layout size and spacing.",
+    category: "Layout",
   },
   {
     id: 4,
-    question: "What is the difference between block and inline elements?",
+    question: "How do CSS variables differ from preprocessor variables?",
     answer:
-      "Block elements take up the full width available and create a new line, while inline elements only take up as much width as necessary and don't create a new line",
-    category: "Basics",
+      "CSS custom properties are runtime variables in the DOM that can change dynamically; preprocessor vars are compile-time substitutions.",
+    category: "Advanced",
   },
-
-  // CSS Layout
   {
     id: 5,
     question: "What is flexbox?",
     answer:
-      "A one-dimensional layout method designed for arranging items in rows or columns",
+      "A one-dimensional layout system that arranges items along a row or column with alignment and spacing control.",
     category: "Layout",
   },
   {
     id: 6,
     question: "What is CSS Grid?",
     answer:
-      "A two-dimensional layout system designed for complex layouts with rows and columns",
+      "A two-dimensional layout system for creating rows and columns with precise placement and alignment.",
     category: "Layout",
   },
   {
     id: 7,
-    question: "What is the position property in CSS?",
+    question: "What are container queries?",
     answer:
-      "A property that specifies how an element is positioned in a document, with values like static, relative, absolute, fixed, and sticky",
-    category: "Layout",
+      "A newer feature allowing elements to adapt styles based on the size of their containing element, not viewport width.",
+    category: "Modern",
   },
   {
     id: 8,
-    question: "What is the z-index property?",
+    question: "What is logical properties syntax?",
     answer:
-      "A property that specifies the stack order of an element (which element is placed in front of or behind others)",
-    category: "Layout",
+      "Using flow‑relative properties like margin‑inline‑start or padding‑block‑end that adapt automatically to writing direction.",
+    category: "Modern",
   },
-
-  // Advanced CSS
   {
     id: 9,
-    question: "What are CSS preprocessors?",
+    question: "How does the :has() selector work?",
     answer:
-      "Tools that extend CSS with features like variables, nesting, and mixins (e.g., Sass, Less, Stylus)",
-    category: "Advanced",
+      "It matches an element if it contains a descendant matching a selector — allowing parent‑based styling logic.",
+    category: "Selectors",
   },
   {
     id: 10,
-    question: "What are CSS custom properties (variables)?",
+    question: "What is the difference between ::before and ::after?",
     answer:
-      "Properties defined with -- prefix that can store values to be reused throughout a document",
-    category: "Advanced",
+      "Both create pseudo-elements before or after content for decorative or structural use. They require 'content' to render.",
+    category: "Selectors",
   },
   {
     id: 11,
-    question: "What is CSS animation?",
+    question: "What is the prefers-color-scheme media query?",
     answer:
-      "A way to animate HTML elements without using JavaScript, using @keyframes and the animation property",
-    category: "Advanced",
+      "A query that detects the user’s system theme preference (light or dark) to apply theme-appropriate styles automatically.",
+    category: "Media",
   },
   {
     id: 12,
-    question: "What are media queries?",
+    question: "What is the subgrid feature?",
     answer:
-      "CSS techniques used to apply styles based on device characteristics, like screen size, resolution, or orientation",
-    category: "Advanced",
+      "A CSS Grid enhancement that allows nested grids to align their rows or columns with the parent grid.",
+    category: "Layout",
   },
 ];
 
-// Map of flashcard sets for easy access
+/* ──────────────────────────────
+   ⚙️ Effect.ts (12 Questions)
+──────────────────────────────── */
+export const effectFlashcards: Flashcard[] = [
+  {
+    id: 1,
+    question: "What is Effect TS?",
+    answer:
+      "A functional TypeScript library for managing async, concurrent, and resource‑safe computations using effects.",
+    category: "Basics",
+  },
+  {
+    id: 2,
+    question: "What problem does Effect TS solve?",
+    answer:
+      "It provides structured concurrency, error handling, and testable effects instead of ad‑hoc async/await.",
+    category: "Concepts",
+  },
+  {
+    id: 3,
+    question: "What is an Effect?",
+    answer:
+      "A description of a computation that may succeed, fail, or produce a value asynchronously without performing it yet.",
+    category: "Basics",
+  },
+  {
+    id: 4,
+    question: "How do you run an Effect?",
+    answer: "By calling Effect.runPromise(effect) or using Effect.runSync.",
+    category: "API",
+  },
+  {
+    id: 5,
+    question: "What is Fiber in Effect TS?",
+    answer:
+      "A lightweight, cancellable thread of execution managed by the runtime.",
+    category: "Concurrency",
+  },
+  {
+    id: 6,
+    question: "What is the Layer system in Effect TS?",
+    answer:
+      "An abstraction for dependency injection and resource management that composes services safely.",
+    category: "Infrastructure",
+  },
+  {
+    id: 7,
+    question: "How does Effect TS handle errors?",
+    answer:
+      "All failures are typed; you can recover using catchAll, catchTag, or provideError to handle typed errors explicitly.",
+    category: "Error Handling",
+  },
+  {
+    id: 8,
+    question: "What are Scopes in Effect TS?",
+    answer:
+      "Regions that manage lifetimes of resources like connections, ensuring cleanup and safety.",
+    category: "Resources",
+  },
+  {
+    id: 9,
+    question: "How is logging done in Effect TS?",
+    answer: "Using Effect.log or custom LogLayers injected via Layers.",
+    category: "Utilities",
+  },
+  {
+    id: 10,
+    question: "What is Effect.gen?",
+    answer:
+      "A generator‑based helper allowing imperative‑looking composition of Effects with yield* syntax.",
+    category: "Syntax",
+  },
+  {
+    id: 11,
+    question: "What is Context in Effect TS?",
+    answer:
+      "A typed key‑value environment used to pass dependencies (services) implicitly through computation chains.",
+    category: "Concepts",
+  },
+  {
+    id: 12,
+    question: "How does Effect TS compare to RxJS?",
+    answer:
+      "Effect TS models async computations lazily with structured concurrency, while RxJS focuses on push‑based reactive streams.",
+    category: "Comparison",
+  },
+];
+
+/* ──────────────────────────────
+   🔍 TanStack Query (12 Questions)
+──────────────────────────────── */
+export const tanstackFlashcards: Flashcard[] = [
+  {
+    id: 1,
+    question: "What is TanStack Query (React Query)?",
+    answer:
+      "A powerful data fetching and caching library for managing server state in React and other frameworks.",
+    category: "Basics",
+  },
+  {
+    id: 2,
+    question: "What hook is used for fetching data?",
+    answer:
+      "useQuery or useInfiniteQuery fetching data and managing cache automatically.",
+    category: "API",
+  },
+  {
+    id: 3,
+    question: "What does useMutation do?",
+    answer:
+      "Handles creating, updating, or deleting data while providing optimistic updates and error recovery.",
+    category: "API",
+  },
+  {
+    id: 4,
+    question: "What is QueryClient?",
+    answer:
+      "A central object that stores cache data and configuration for all queries and mutations in the app.",
+    category: "Core",
+  },
+  {
+    id: 5,
+    question: "What is Query Key?",
+    answer:
+      "An array or string identifying a unique query; determines cache identity and re‑use.",
+    category: "Core",
+  },
+  {
+    id: 6,
+    question: "How does revalidation work in TanStack Query?",
+    answer:
+      "It automatically refetches based on focus, network reconnection, or time‑based stale durations.",
+    category: "Advanced",
+  },
+  {
+    id: 7,
+    question: "What is staleTime?",
+    answer:
+      "The duration TanStack Query considers data fresh before triggering background refetches.",
+    category: "Config",
+  },
+  {
+    id: 8,
+    question: "What is cacheTime?",
+    answer:
+      "How long unused (inactive) query data remains in cache before garbage collection.",
+    category: "Config",
+  },
+  {
+    id: 9,
+    question: "How do you prefetch data?",
+    answer: "Use queryClient.prefetchQuery or dehydrate/hydrate for SSR.",
+    category: "Fetching",
+  },
+  {
+    id: 10,
+    question: "What’s new in TanStack Query v5?",
+    answer:
+      "Simplified query functions, new mutation behaviors, better suspense integration, and async adapters.",
+    category: "Modern",
+  },
+  {
+    id: 11,
+    question: "How can you use TanStack Query with React Server Components?",
+    answer:
+      "Use dehydrate on the server and hydrate on the client, or fetch data directly in server components then prefill cache.",
+    category: "SSR",
+  },
+  {
+    id: 12,
+    question: "What is query invalidation?",
+    answer:
+      "A process to mark cached data as stale, prompting TanStack Query to refetch the latest data.",
+    category: "Core",
+  },
+];
+
+/* ──────────────────────────────
+   🌐 HTML (12 Questions)
+──────────────────────────────── */
+export const htmlFlashcards: Flashcard[] = [
+  {
+    id: 1,
+    question: "What does HTML stand for?",
+    answer: "HyperText Markup Language, used to structure content on the web.",
+    category: "Basics",
+  },
+  {
+    id: 2,
+    question: "What is the DOCTYPE declaration for HTML5?",
+    answer: "<!DOCTYPE html>",
+    category: "Basics",
+  },
+  {
+    id: 3,
+    question: "What new semantic tags were introduced in HTML5?",
+    answer:
+      "header, footer, article, section, main, nav, aside, figure, figcaption, and more.",
+    category: "Structure",
+  },
+  {
+    id: 4,
+    question: "What is the difference between <section> and <article>?",
+    answer:
+      "<article> is self‑contained content (e.g., a blog post), while <section> groups related contextually connected content.",
+    category: "Structure",
+  },
+  {
+    id: 5,
+    question: "What is the purpose of the <meta> viewport tag?",
+    answer:
+      'It controls page scaling and responsiveness on mobile devices, typically using content="width=device-width, initial-scale=1".',
+    category: "Responsive",
+  },
+  {
+    id: 6,
+    question: "What is the difference between block and inline elements?",
+    answer:
+      "Block elements start on new lines and take full width; inline elements take only necessary space within flow.",
+    category: "Basics",
+  },
+  {
+    id: 7,
+    question: "What are data-* attributes used for?",
+    answer:
+      "They store custom data directly in HTML elements for access via JavaScript, prefixed with data‑.",
+    category: "Attributes",
+  },
+  {
+    id: 8,
+    question: "What is the <dialog> tag used for?",
+    answer:
+      "To create modal or pop‑up dialogs easily controllable with open/close API via JavaScript.",
+    category: "Modern",
+  },
+  {
+    id: 9,
+    question: "What is the difference between <strong> and <b>?",
+    answer:
+      "<strong> conveys semantic importance, while <b> provides purely visual bold styling.",
+    category: "Semantics",
+  },
+  {
+    id: 10,
+    question: "What is the <template> tag?",
+    answer:
+      "A hidden fragment of HTML that can be cloned and inserted into the DOM at runtime using JavaScript.",
+    category: "Modern",
+  },
+  {
+    id: 11,
+    question: "What is lazy loading of images?",
+    answer:
+      'Using the loading="lazy" attribute on <img> to defer loading until the element enters the viewport.',
+    category: "Performance",
+  },
+  {
+    id: 12,
+    question: "What is the purpose of the rel attribute in <link>?",
+    answer:
+      "Specifies the relationship between the current document and the linked resource (e.g., stylesheet, prefetch, canonical).",
+    category: "Attributes",
+  },
+];
+
+/* ──────────────────────────────
+   📦 Combined Export Map
+──────────────────────────────── */
 export const flashcardSets: Record<string, FlashcardSet> = {
   react: {
     name: "React",
-    description: "Learn React fundamentals and advanced concepts",
+    description:
+      "Learn React 2025 fundamentals, hooks, and concurrent features.",
     icon: "react",
     cards: reactFlashcards,
   },
   javascript: {
     name: "JavaScript",
-    description: "Master JavaScript language features",
+    description: "Master modern ECMAScript syntax and advanced concepts.",
     icon: "javascript",
     cards: javascriptFlashcards,
   },
-  typescript: {
-    name: "TypeScript",
-    description: "Understand TypeScript's type system and features",
-    icon: "typescript",
-    cards: typescriptFlashcards,
-  },
   css: {
     name: "CSS",
-    description: "Learn CSS styling and layout techniques",
+    description: "Explore modern, responsive, and logical CSS techniques.",
     icon: "css",
     cards: cssFlashcards,
   },
+  effect: {
+    name: "Effect TS",
+    description:
+      "Learn structured concurrency and typed effects with Effect TS.",
+    icon: "bolt",
+    cards: effectFlashcards,
+  },
+  tanstack: {
+    name: "TanStack Query",
+    description: "Master asynchronous server‑state management.",
+    icon: "database",
+    cards: tanstackFlashcards,
+  },
+  html: {
+    name: "HTML",
+    description:
+      "Understand modern, semantic, and accessible HTML 5+ features.",
+    icon: "file-code",
+    cards: htmlFlashcards,
+  },
 };
 
-// Default export for convenience
 export default flashcardSets;

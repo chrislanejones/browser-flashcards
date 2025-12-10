@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useCallback } from "react";
 import { Flashcard } from "@/data/flashcards";
 
@@ -11,9 +10,18 @@ interface UseFlashcardNavigationProps {
   focusCard: (index: number) => void;
 }
 
-/**
- * Custom hook for keyboard navigation in flashcards grid
- */
+function getColumnsForBreakpoint(): number {
+  if (typeof window === "undefined") return 1;
+
+  const width = window.innerWidth;
+
+  // Tailwind breakpoints
+  if (width < 640) return 1; // mobile
+  if (width < 768) return 2; // sm
+  if (width < 1024) return 3; // md
+  return 4; // lg and above
+}
+
 export function useFlashcardNavigation({
   flashcards,
   focusedIndex,
@@ -21,19 +29,17 @@ export function useFlashcardNavigation({
   toggleCardFlip,
   focusCard,
 }: UseFlashcardNavigationProps) {
-  // Handle keyboard navigation and actions
   const handleKeyDown = useCallback(
     (e: KeyboardEvent): void => {
-      // Handle spacebar for flipping the focused card
+      const cols = getColumnsForBreakpoint();
+
       if (e.key === " " && focusedIndex !== null) {
         e.preventDefault();
         toggleCardFlip(focusedIndex);
         return;
       }
 
-      // Only process navigation keys if a card is focused
       if (focusedIndex === null) {
-        // If no card is focused and arrow/WASD is pressed, focus the first card
         if (
           [
             "ArrowUp",
@@ -57,10 +63,8 @@ export function useFlashcardNavigation({
         return;
       }
 
-      const cols = Math.floor(window.innerWidth / 300) || 1;
       let newIndex = focusedIndex;
 
-      // Handle navigation with WASD or arrow keys
       switch (e.key) {
         case "ArrowUp":
         case "w":
@@ -82,7 +86,7 @@ export function useFlashcardNavigation({
         case "D":
           newIndex = Math.min(flashcards.length - 1, focusedIndex + 1);
           break;
-        case "Escape": // Escape key to clear focus
+        case "Escape":
           if (document.activeElement instanceof HTMLElement) {
             document.activeElement.blur();
           }
@@ -95,13 +99,12 @@ export function useFlashcardNavigation({
       if (newIndex !== focusedIndex) {
         setFocusedIndex(newIndex);
         focusCard(newIndex);
-        e.preventDefault(); // Prevent scrolling
+        e.preventDefault();
       }
     },
     [flashcards, focusedIndex, setFocusedIndex, toggleCardFlip, focusCard]
   );
 
-  // Set up global keyboard listener
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);

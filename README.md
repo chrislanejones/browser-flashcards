@@ -1,106 +1,135 @@
-# Interactive React Flashcards App
+# 📚 Interactive Study Flashcards App
 
-📚 Live Demo: [https://browser-flashcards.vercel.app/](https://browser-flashcards.vercel.app/)
+![Browser Flash Cards Banner](/public/Browser-Flash-Card-Banner.webp)
 
 ![Flashcards App Screenshot](/public/Flash-Cards-For-Studying.webp)
 
-A modern, interactive flashcards application built with Next.js, React, and Tailwind CSS. This app provides a dynamic study experience with smooth navigation, intuitive interactions, and multiple subject categories.
+**Live Demo:** [https://browser-flashcards.vercel.app/](https://browser-flashcards.vercel.app/)
+
+A modern, interactive flashcards application built with **Next.js 14**, **React 19**, and **Tailwind CSS v4**.  
+Enjoy a dynamic study experience with seamless navigation, dark mode, command palette topic switching, and polished transitions — all fully responsive and built for speed.
+
+---
 
 ## 🌟 Features
 
-- **Interactive Navigation**
+### 🎮 Interactive Navigation
 
-  - Keyboard navigation using arrow keys and WASD
-  - Click and focus interactions
-  - Spacebar to flip cards
-  - Escape key to clear focus
+- Navigate flashcards with **Arrow Keys** or **W A S D**
+- **Spacebar** flips cards instantly
+- **Escape** clears focus
+- **Click** on a card to focus and flip
 
-- **Smart Interactions**
+### 🧠 Smart Interactions
 
-  - Idle timer that flips cards back after 20 seconds of inactivity
-  - Command palette (Ctrl+K) for quick topic switching
-  - Multiple flashcard sets (React, JavaScript, TypeScript, CSS)
-  - Categorized flashcards within each set
+- Idle timer flips cards back after ~20 seconds
+- **Command Palette (`Ctrl + K`)** for instant topic switching
+- Multiple flashcard sets:
+  - React • JavaScript • TypeScript • CSS
+  - Effect TS • TanStack Query • HTML
+- Organized by category (Basics • Hooks • Advanced • etc.)
 
-- **Responsive Design**
+### 💡 Themes & Accessibility
 
-  - Adaptive grid layout (1-4 columns based on screen width)
-  - Smooth scrolling and card focus management
+- Light / Dark mode toggle
+- System theme detection
+- Persistent theme storage
+- Fully keyboard accessible
 
-- **Theme Support**
+### 📱 Responsive Design
 
-  - Light and dark mode
-  - System preference detection
-  - Persistent theme selection
+- 1–4 column adaptive grid
+- Smooth focus transitions
+- Uses modern container queries and logical units
 
-- **Realistic Card Design**
-  - Index card-style aesthetic
-  - Custom styling with ruled lines
-  - Smooth flip animations
+### ✨ Aesthetic Appeal
 
-## 🚀 Technology Stack
+- Realistic index-card styling
+- Gentle animations and shadows
+- Optimized for GPU rendering
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- next-themes
-- Lucide React Icons
-- cmdk (Command Menu)
+---
 
-## 🔧 Installation
+## ⚙️ Tech Stack
+
+| Layer           | Technology                                |
+| :-------------- | :---------------------------------------- |
+| Framework       | **Next.js 14 (App Router)**               |
+| Library         | **React 19 (Server & Client Components)** |
+| Language        | **TypeScript 5+**                         |
+| Styling         | **Tailwind CSS 4 + @tailwindcss/postcss** |
+| Themes          | **next-themes**                           |
+| UI / Icons      | **Lucide React + ShadCN UI + cmdk**       |
+| Package Manager | **pnpm**                                  |
+| Deployment      | **Vercel**                                |
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js (v16+)
-- npm or yarn
+- Node.js **v18+**
+- **pnpm** package manager (`npm install -g pnpm`)
 
-### Setup
-
-1. Clone the repository
+### Installation
 
 ```bash
-git clone https://github.com/yourusername/flashcards-app.git
-cd flashcards-app
+# 1️⃣  Clone the repository
+git clone https://github.com/yourusername/browser-flashcards.git
+cd browser-flashcards
+
+# 2️⃣  Install dependencies
+pnpm install
+
+# 3️⃣  Run the development server
+pnpm dev
 ```
 
-2. Install dependencies
+Now open [http://localhost:3000](http://localhost:3000) 🎉
 
-```bash
-npm install
-# or
-yarn install
-```
+---
 
-3. Run the development server
+## 🎮 Usage Guide
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### ⌨️ Keyboard Controls
 
-## 🎮 Usage
+| Action             | Keys               |
+| ------------------ | ------------------ |
+| Move between cards | ← → ↑ ↓ or W A S D |
+| Flip card          | Spacebar           |
+| Reset / Unfocus    | Escape             |
+| Switch topic       | Ctrl + K           |
 
-### Keyboard Controls
+### 🖱️ Mouse Controls
 
-- **Navigation**
-  - Arrow Keys / WASD: Move between cards
-  - Spacebar: Flip focused card
-  - Escape: Clear card focus
-  - Ctrl+K: Open command palette for switching topics
+- Click on a card to focus
+- Click again or press **Spacebar** to flip
 
-### Mouse Interactions
+### ☀️ Theme Toggle
 
-- **Click on Card**:
-  - Focus the card
-  - Flip the card when clicked
+- Use the **Sun / Moon** button in the footer
+- Themes persist locally and respect system settings
 
-### Theme Toggle
+---
 
-- Use the sun/moon icon in the footer to switch between light and dark modes
+## 🧩 Available Topics
 
-## 📂 Project Structure
+| Topic                 | Description                                           |
+| :-------------------- | :---------------------------------------------------- |
+| ⚛️ **React**          | Modern React 19, hooks, actions, server components    |
+| ⚡ **JavaScript**     | ES2024+, closures, async iteration, optional chaining |
+| 🎨 **CSS**            | Subgrid, logical properties, container queries        |
+| 🧱 **TypeScript**     | Generics, inference, React types                      |
+| ⚙️ **Effect TS**      | Functional effects, concurrency, typed errors         |
+| 🔍 **TanStack Query** | Data fetching and server-state management             |
+| 🌐 **HTML**           | Semantic and modern markup essentials                 |
+
+Quickly switch topics using **Ctrl + K**!
+
+---
+
+## 🗂️ Project Structure
 
 ```
 ├── app/
@@ -157,9 +186,11 @@ Each set can have categories like "Basics", "Advanced", etc. for better organiza
 
 The flashcards system now uses a more modular architecture:
 
-- **Context Provider**: Centralizes state management for all flashcards
-- **Custom Hooks**: Separates logic for navigation and idle detection
-- **Specialized Components**: Splits rendering responsibilities for better maintainability
+- **Context Provider**: Manages focus & flip states globally
+- **Custom Hooks**: Handle keyboard navigation and idle timers
+- **Specialized Components**: Each flashcard is isolated for smooth re-rendering
+- **Dynamic Layout Detection**: Works across breakpoints
+- **Theme Tokens**: Controlled by CSS variables with Tailwind v4
 
 This separation of concerns makes the application more maintainable and extensible.
 
