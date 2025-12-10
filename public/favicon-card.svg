@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+  <style>
+    .card-bg { fill: #ffffff; stroke: #cbd5e1; }
+    .red-line { stroke: #ef4444; }
+    .blue-line { stroke: #457b9d; opacity: 0.4; }
+    @media (prefers-color-scheme: dark) {
+      .card-bg { fill: #282c34; stroke: #475569; }
+      .red-line { stroke: #f87171; }
+      .blue-line { stroke: #457b9d; opacity: 0.5; }
+    }
+  </style>
+  <!-- Card background -->
+  <rect class="card-bg" x="2" y="3" width="20" height="18" rx="2" stroke-width="1.5"/>
+  <!-- Red line (first line) -->
+  <line class="red-line" x1="4" y1="8" x2="20" y2="8" stroke-width="1"/>
+  <!-- Blue lines -->
+  <line class="blue-line" x1="4" y1="12" x2="20" y2="12" stroke-width="0.75"/>
+  <line class="blue-line" x1="4" y1="16" x2="20" y2="16" stroke-width="0.75"/>
+</svg>

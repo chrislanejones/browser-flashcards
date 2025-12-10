@@ -24,7 +24,6 @@ export default function FlashcardItem({
   const isFocused = focusedIndex === index;
   const isFlipped = flippedIndices.has(index);
 
-  // Direct keydown handler for spacebar
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
@@ -32,17 +31,14 @@ export default function FlashcardItem({
     }
   };
 
-  // Handle click on card
   const handleClick = () => {
     toggleCardFlip(index);
   };
 
-  // Handle focus on card
   const handleFocus = () => {
     setFocusedIndex(index);
   };
 
-  // Additional effect to handle spacebar directly on the focused element
   useEffect(() => {
     const element = cardRef.current;
     if (!element) return;
@@ -65,46 +61,31 @@ export default function FlashcardItem({
       ref={cardRef}
       id={id}
       className={cn(
-        "aspect-[1.67/1] perspective-1000 cursor-pointer transition-all duration-200 drop-in-with-bounce",
+        "index-card aspect-[1.67/1] cursor-pointer transition-all duration-200 drop-in-with-bounce",
         isFocused && "card-focus-ring"
       )}
       onClick={handleClick}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      style={{
-        isolation: "isolate", // Creates a new stacking context
-      }}
+      style={{ isolation: "isolate" }}
     >
       <div
         className={cn(
           "relative w-full h-full transition-transform duration-500 preserve-3d",
           isFlipped ? "rotate-y-180" : ""
         )}
-        style={{ zIndex: 10 }} // Ensures the card is above the focus ring
       >
-        {/* Front side */}
-        <div
-          className={cn(
-            "absolute w-full h-full backface-hidden",
-            "rounded-md shadow-md",
-            "flex flex-col items-center justify-center",
-            "index-card"
-          )}
-        >
-          <div className="text-xl font-medium text-center">{question}</div>
+        {/* Front - Question */}
+        <div className="card-face backface-hidden">
+          <div className="text-base sm:text-lg font-medium text-center px-2">
+            {question}
+          </div>
         </div>
 
-        {/* Back side */}
-        <div
-          className={cn(
-            "absolute w-full h-full backface-hidden rotate-y-180",
-            "rounded-md shadow-md",
-            "flex flex-col items-center justify-center",
-            "bg-white dark:bg-slate-800" // Plain background without ruled lines
-          )}
-        >
-          <div className="text-lg text-center p-4">{answer}</div>
+        {/* Back - Answer */}
+        <div className="card-face card-back backface-hidden">
+          <div className="text-sm sm:text-base text-center px-2">{answer}</div>
         </div>
       </div>
     </div>
