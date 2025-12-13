@@ -6,7 +6,7 @@
 
 **Live Demo:** [https://browser-flashcards.vercel.app/](https://browser-flashcards.vercel.app/)
 
-A modern, interactive flashcards application built with **Next.js 14**, **React 19**, and **Tailwind CSS v4**.  
+A modern, interactive flashcards application built with **Next.js 16**, **React 19**, and **Tailwind CSS v4**.
 Enjoy a dynamic study experience with seamless navigation, dark mode, command palette topic switching, and polished transitions — all fully responsive and built for speed.
 
 ---
@@ -25,7 +25,7 @@ Enjoy a dynamic study experience with seamless navigation, dark mode, command pa
 - Idle timer flips cards back after ~20 seconds
 - **Command Palette (`Ctrl + K`)** for instant topic switching
 - Multiple flashcard sets:
-  - React • JavaScript • TypeScript • CSS
+  - React • JavaScript • CSS
   - Effect TS • TanStack Query • HTML
 - Organized by category (Basics • Hooks • Advanced • etc.)
 
@@ -52,16 +52,16 @@ Enjoy a dynamic study experience with seamless navigation, dark mode, command pa
 
 ## ⚙️ Tech Stack
 
-| Layer           | Technology                                |
-| :-------------- | :---------------------------------------- |
-| Framework       | **Next.js 14 (App Router)**               |
-| Library         | **React 19 (Server & Client Components)** |
-| Language        | **TypeScript 5+**                         |
-| Styling         | **Tailwind CSS 4 + @tailwindcss/postcss** |
-| Themes          | **next-themes**                           |
-| UI / Icons      | **Lucide React + ShadCN UI + cmdk**       |
-| Package Manager | **pnpm**                                  |
-| Deployment      | **Vercel**                                |
+| Layer           | Technology                                 |
+| :-------------- | :----------------------------------------- |
+| Framework       | **Next.js 16 (App Router)**                |
+| Library         | **React 19.2 (Server & Client Components)**|
+| Language        | **TypeScript 5.9**                         |
+| Styling         | **Tailwind CSS 4.1 + @tailwindcss/postcss**|
+| Themes          | **next-themes**                            |
+| UI / Icons      | **Lucide React + ShadCN UI + cmdk**        |
+| Package Manager | **pnpm**                                   |
+| Deployment      | **Vercel**                                 |
 
 ---
 
@@ -120,7 +120,6 @@ Now open [http://localhost:3000](http://localhost:3000) 🎉
 | ⚛️ **React**          | Modern React 19, hooks, actions, server components    |
 | ⚡ **JavaScript**     | ES2024+, closures, async iteration, optional chaining |
 | 🎨 **CSS**            | Subgrid, logical properties, container queries        |
-| 🧱 **TypeScript**     | Generics, inference, React types                      |
 | ⚙️ **Effect TS**      | Functional effects, concurrency, typed errors         |
 | 🔍 **TanStack Query** | Data fetching and server-state management             |
 | 🌐 **HTML**           | Semantic and modern markup essentials                 |
@@ -133,28 +132,30 @@ Quickly switch topics using **Ctrl + K**!
 
 ```
 ├── app/
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Main page component
-│   └── globals.css        # Global styles
+│   ├── layout.tsx              # Root layout with ThemeProvider
+│   ├── page.tsx                # Main page component
+│   └── globals.css             # Global styles and animations
 ├── components/
-│   ├── flashcards/        # Flashcard components (new modular structure)
-│   │   ├── index.ts       # Barrel file for clean exports
-│   │   ├── FlashcardContext.tsx  # Context provider for state management
-│   │   ├── FlashcardGrid.tsx     # Grid layout for flashcards
-│   │   └── FlashcardItem.tsx     # Individual flashcard component
-│   ├── command-dialog.tsx # Command palette component
-│   ├── theme-provider.tsx # Theme context provider
-│   ├── theme-toggle.tsx   # Theme switching component
-│   └── ui/                # UI component library
+│   ├── flashcards/             # Flashcard components (modular structure)
+│   │   ├── FlashcardContext.tsx    # Context provider for state management
+│   │   ├── FlashcardGrid.tsx       # Grid layout for flashcards
+│   │   └── FlashcardItem.tsx       # Individual flashcard component
+│   ├── hooks/                  # Custom React hooks
+│   │   ├── useFlashcardNavigation.ts  # Keyboard navigation logic
+│   │   ├── useIdleTimer.ts            # Idle detection for auto-flip
+│   │   └── useStaggeredAnimation.ts   # Entry animation timing
+│   ├── ui/                     # ShadCN UI component library
+│   ├── command-dialog.tsx      # Command palette (Ctrl+K)
+│   ├── theme-provider.tsx      # Theme context provider
+│   └── theme-toggle.tsx        # Theme switching component
 ├── data/
-│   └── flashcards.ts      # Flashcard content with categories
-├── hooks/
-│   ├── use-idle-timer.ts  # Idle detection for auto-flipping cards
-│   └── use-flashcard-navigation.ts # Keyboard navigation logic
+│   ├── flashcards.ts           # Flashcard content with categories
+│   └── layout.ts               # Breakpoint definitions
+├── lib/
+│   └── utils.ts                # Helper functions (cn utility)
 ├── utils/
-│   ├── keyboard-controls.ts
-│   └── mouse-controls.ts  # Interaction utilities
-└── tailwind.config.js     # Tailwind configuration
+│   └── mouse-controls.ts       # Mouse interaction utilities
+└── tailwind.config.ts          # Tailwind configuration
 ```
 
 ## 🗂️ Managing Flashcards
@@ -177,10 +178,12 @@ The application supports multiple flashcard sets that can be switched via the co
 
 - React
 - JavaScript
-- TypeScript
 - CSS
+- Effect TS
+- TanStack Query
+- HTML
 
-Each set can have categories like "Basics", "Advanced", etc. for better organization.
+Each set can have categories like "Basics", "Hooks", "Advanced", "Modern", etc. for better organization.
 
 ## 🧩 Component Architecture
 
